@@ -2,6 +2,10 @@
   roles:
     - { role: nolte.minecraft, minecraft_whitelist: [ "supertunaman", "pavelshum" ] }
   tasks:
+    - name: Agree to eula
+      copy:
+        dest: /opt/minecraft/server/shared/eula.txt
+        content: 'eula=true'
     - name: Install httpd
       package:
         name: httpd

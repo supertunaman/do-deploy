@@ -26,7 +26,7 @@ resource "digitalocean_droplet" "wilris_minecraft" {
   backups = var.backup_enabled
 
   provisioner "local-exec" {
-    command = "sleep 45; ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -u root --private-key ~/.ssh/id_rsa -i \"${digitalocean_droplet.wilris_minecraft.ipv4_address},\" ../../ansible/minecraft/main.yml"
+    command = "sleep 45; ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -u root --private-key ~/.ssh/id_rsa -i \"${digitalocean_droplet.wilris_minecraft.ipv4_address},\" provisioner/ansible-playbook.yml"
   }
 }
 
@@ -43,6 +43,12 @@ resource "digitalocean_firewall" "minecraft" {
   inbound_rule {
     protocol = "tcp"
     port_range = "443"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol = "tcp"
+    port_range = "22"
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
