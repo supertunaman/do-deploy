@@ -23,6 +23,11 @@ resource "digitalocean_droplet" "wilris_minecraft" {
   region = var.region
   size = var.size
   ssh_keys = var.ssh_fingerprints
+  backups = var.backup_enabled
+
+  provisioner "local-exec" {
+    command = "sleep 45; ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -u root --private-key ~/.ssh/id_rsa -i \"${digitalocean_droplet.wilris_minecraft.ipv4_address},\" ../../ansible/minecraft/main.yml"
+  }
 }
 
 resource "digitalocean_firewall" "minecraft" {

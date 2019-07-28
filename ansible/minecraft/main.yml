@@ -1,0 +1,8 @@
+- hosts: all
+  roles:
+    - { role: nolte.minecraft, minecraft_whitelist: [ "supertunaman", "pavelshum" ] }
+  tasks:
+    - name: Install httpd
+      package:
+        name: httpd
+        state: present

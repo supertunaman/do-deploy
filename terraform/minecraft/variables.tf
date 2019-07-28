@@ -20,3 +20,8 @@ variable "size" {
   description = "Size of the minecraft droplet"
   default = "s-1vcpu-1gb"
 }
+
+variable "backup_enabled" {
+  description = "Whether to backups on the droplet"
+  default = false
+}
